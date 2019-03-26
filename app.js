@@ -22,31 +22,35 @@ buscadorComponent.innerHTML = `
   </form>
 </div>
 `
-campoBuscar = document.getElementById('campoBuscar')
-campoBuscar.addEventListener("keyup",filtrar,false)
+;
 
-function filtrar (datos,positivo){
-  fetch(url)
-  .then(res => res.json())
-  .then(datos =>
-    filtrar(datos,"si")
-    )
-  .catch(err => console.log(err)); 
-  // contenido.innerHTML = ``;
-  // contenido.innerHTML += `
-  // <h1 class="header center orange-text">Productos</h1>
-  // <div class="row center">   
-  //    <h5 class="header col s12 light">La cantidad de productos es de: ${data.length} items</h5>
-  //  </div>
-  //  <div class="row">
-  //  ${data.map(productTemplate).join('')}
-  //  </div> 
-  //  `
-  // const contenido = document.getElementById('contenido');
-  // contenido.innerHTML = '';
-  // const texto = campoBuscar.value.toLowerCase();
-  console.log('aprete tecla');
-}
+
+
+
+
+
+   let campoBuscar = document.getElementById('campoBuscar');
+   campoBuscar.addEventListener('click',
+   function buscador() {
+    fetch(url)
+    .then(res => res.json())
+    .then(datos =>
+      //console.log(datos)
+       filtrar(datos)
+    );  
+  })
+
+  function filtrar(datos) {
+    const texto = campoBuscar.value.toLowerCase();
+    contenido.innerHTML = '';
+
+    contenido.innerHTML += `${
+      datos.map(
+        function(valor){
+          return `<h3>${valor.producto}</h3>`}
+          )}`
+  };
+
 
 var content = document.createElement("div");
 content.setAttribute("id", "contenido");
@@ -87,7 +91,6 @@ let productTemplate = valor =>
     
 // function traerDatos(datos) {
  let traerDatos = data => {
-
   contenido.innerHTML = ``;
   contenido.innerHTML += `
   <h1 class="header center orange-text">Productos</h1>
